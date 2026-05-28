@@ -1,0 +1,55 @@
+name: Update Stats
+
+on:
+  push:
+    branches: [main]
+    paths: ['contests/**/*.cpp']
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Count problems and update README badges
+        run: |
+          TOTAL=$(find contests -name '*.cpp' -type f | wc -l)
+          CONTESTS=$(find contests -mindepth 1 -maxdepth 1 -type d | wc -l)
+
+          echo "Problems: $TOTAL"
+          echo "Contests: $CONTESTS"
+
+          # Fetch current rating from CF API
+          RATING=$(curl -s "https://codeforces.com/api/user.info?handles=asmofficial172006" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['result'][0]['rating'])" 2>/dev/null || echo "")
+          MAX_RATING=$(curl -s "https://codeforces.com/api/user.info?handles=asmofficial172006" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['result'][0]['maxRating'])" 2>/dev/null || echo "")
+          RANK=$(curl -s "https://codeforces.com/api/user.info?handles=asmofficial172006" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['result'][0]['rank'])" 2>/dev/null || echo "")
+
+          if [ -n "$RATING" ]; then
+            RANK_CAP=$(echo "$RANK" | sed 's/.*/\u&/')
+            echo "Rating: $RATING (max $MAX_RATING), Rank: $RANK_CAP"
+          fi
+
+          # Write stats to a machine-readable file for reference
+          cat > stats.json <<EOF
+          {
+            "problems_solved": $TOTAL,
+            "contests": $CONTESTS,
+            "rating": "${RATING:-unknown}",
+            "max_rating": "${MAX_RATING:-unknown}",
+            "rank": "${RANK:-unknown}",
+            "last_updated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add stats.json
+          git diff --cached --quiet || git commit -m "chore: update stats [skip ci]" && git push

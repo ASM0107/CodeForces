@@ -1,0 +1,28 @@
+name: Compile Check
+
+on:
+  push:
+    paths: ['**/*.cpp']
+  pull_request:
+    paths: ['**/*.cpp']
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find and compile all .cpp files
+        run: |
+          FAIL=0
+          while IFS= read -r file; do
+            echo "::group::Compiling $file"
+            if g++ -std=c++20 -O2 -Wall -Wextra -fsyntax-only "$file" 2>&1; then
+              echo "✓ $file"
+            else
+              echo "::error file=$file::Compilation failed"
+              FAIL=1
+            fi
+            echo "::endgroup::"
+          done < <(find . -name '*.cpp' -type f)
+          exit $FAIL

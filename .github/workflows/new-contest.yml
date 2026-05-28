@@ -1,0 +1,88 @@
+name: Scaffold New Contest
+
+on:
+  workflow_dispatch:
+    inputs:
+      contest_name:
+        description: 'Full contest name (e.g., Codeforces Round 1101 (Div. 2))'
+        required: true
+      problems:
+        description: 'Problem labels, comma-separated (e.g., A,B,C,D,E)'
+        required: true
+        default: 'A,B,C,D,E'
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create contest directory and files
+        run: |
+          NAME="${{ github.event.inputs.contest_name }}"
+          DIR="contests/$NAME"
+
+          mkdir -p "$DIR"
+
+          # Create stub .cpp files
+          IFS=',' read -ra PROBS <<< "${{ github.event.inputs.problems }}"
+          for P in "${PROBS[@]}"; do
+            P=$(echo "$P" | xargs)
+            cat > "$DIR/$P.cpp" <<'CPPEOF'
+          #include <bits/stdc++.h>
+          using namespace std;
+
+          int main() {
+            ios::sync_with_stdio(false);
+            cin.tie(nullptr);
+
+            int t;
+            cin >> t;
+            while (t--) {
+              // solve
+            }
+            return 0;
+          }
+          CPPEOF
+          done
+
+          # Create README template
+          cat > "$DIR/README.md" <<EOF
+          # $NAME
+
+          **Contest:** [link] · **Rank:** — · **Solved:** — · **Rating:** — → —
+
+          ---
+
+          EOF
+
+          for P in "${PROBS[@]}"; do
+            P=$(echo "$P" | xargs)
+            cat >> "$DIR/README.md" <<EOF
+          ## $P — [Problem Name]
+
+          **Key Insight:**
+          TODO
+
+          **Concepts:** TODO
+
+          **Difficulty:** ~TODO
+
+          **Complexity:** O(?) time, O(?) space
+
+          ---
+
+          EOF
+          done
+
+          echo "[← Back to root](../../README.md)" >> "$DIR/README.md"
+
+      - name: Commit scaffold
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "contests/${{ github.event.inputs.contest_name }}"
+          git commit -m "scaffold: ${{ github.event.inputs.contest_name }}"
+          git push
