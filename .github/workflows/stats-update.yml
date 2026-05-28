@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths: ['contests/**/*.cpp']
   workflow_dispatch:
+  schedule:
+    - cron: '20 18 * * *'  # Runs daily at 18:20 UTC / 11:50 PM IST
 
 jobs:
   update-stats:
