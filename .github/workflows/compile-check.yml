@@ -11,18 +11,52 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Find and compile all .cpp files
+      - name: Find and compile changed .cpp files
         run: |
           FAIL=0
-          while IFS= read -r file; do
-            echo "::group::Compiling $file"
-            if g++ -std=c++20 -O2 -Wall -Wextra -fsyntax-only "$file" 2>&1; then
-              echo "✓ $file"
+          
+          # Detect changed files
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "Detecting changes for Pull Request..."
+            # Get changes between PR head and base branch
+            git fetch origin ${{ github.base_ref }}:${{ github.base_ref }} --depth=1
+            FILES=$(git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }}...HEAD | grep '\.cpp$' || true)
+          else
+            echo "Detecting changes for Push..."
+            # Check if parent commit exists
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              FILES=$(git diff --name-only --diff-filter=ACMRT HEAD~1 HEAD | grep '\.cpp$' || true)
             else
-              echo "::error file=$file::Compilation failed"
-              FAIL=1
+              echo "No parent commit found. Compiling all files..."
+              FILES=$(find . -name '*.cpp' -type f)
             fi
-            echo "::endgroup::"
-          done < <(find . -name '*.cpp' -type f)
+          fi
+
+          if [ -z "$FILES" ]; then
+            echo "No C++ files changed in this push/PR."
+            exit 0
+          fi
+
+          echo "Files to compile:"
+          echo "$FILES"
+          echo "-----------------------------------"
+
+          for file in $FILES; do
+            if [ -f "$file" ]; then
+              echo "::group::Compiling $file"
+              if g++ -std=c++20 -O2 -Wall -Wextra -fsyntax-only "$file" 2>&1; then
+                echo "✓ $file compiles successfully."
+              else
+                echo "::error file=$file::Compilation failed"
+                FAIL=1
+              fi
+              echo "::endgroup::"
+            else
+              echo "Skipping deleted file: $file"
+            fi
+          done
+
           exit $FAIL

@@ -100,7 +100,7 @@ Problems grouped by primary technique. See [topics/INDEX.md](topics/INDEX.md) fo
 ### Profiles
 
 <a href="https://codeforces.com/profile/asmofficial172006">
-  <img src="https://img.shields.io/badge/Codeforces-asmofficial172006-1a8cff?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces"/>
+  <img src="https://img.shields.io/badge/Codeforces-Expert_%7C_1658-1a8cff?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces"/>
 </a>
 <a href="https://www.codechef.com/users/aakash1701">
   <img src="https://img.shields.io/badge/CodeChef-aakash1701-5B4638?style=for-the-badge&logo=codechef&logoColor=white" alt="CodeChef"/>
