@@ -90,9 +90,42 @@ Recurring observations and techniques distilled from contest experience.
 
 ---
 
+## 10. Derived State Reduction
+
+**Pattern:** When a DP has multiple state dimensions (e.g., empty tables and capacity), check if one dimension is a deterministic function of the others. If `capacity = f(empty, seated)`, eliminate capacity from the state and derive it on the fly.
+
+**Why it works:** Many resource-management problems have conservation laws: total capacity = tables opened × seats − people seated. Exploiting these algebraic relationships can collapse an intractable multi-dimensional DP into a tractable lower-dimensional one.
+
+**Seen in:** R1101-C1 (capacity = `(x−e)·s − seated` reduces 2D DP to 1D).
+
+---
+
+## 11. Ternary Search on Parameter Space
+
+**Pattern:** When the only free variable is a discrete parameter (e.g., "how many ambiverts open tables") and the answer function is unimodal in that parameter, use ternary search to find the optimum in O(log n) evaluations instead of trying all values.
+
+**How to recognize:** The marginal benefit of increasing the parameter decreases monotonically (diminishing returns). Formally, `f(k+1) − f(k) ≥ f(k+2) − f(k+1)` — the function is concave.
+
+**Seen in:** R1101-C2 (ternary search over k_A with O(n) greedy simulation per evaluation → O(n log n) total).
+
+---
+
+## 12. Generalized Recursive Decomposition (Hanoi-style)
+
+**Pattern:** When a problem involves moving elements with position-dependent constraints (e.g., a layer needs exactly $a_i$ elements above it), split the stack into the required top and bottom parts. The key trick is to "park" the blocking subset of layers on the auxiliary peg, move the target element, and then **reunite** the parked subset back to the source peg. 
+
+**Why it works:** In standard Hanoi, elements are moved from A to B. But when rules dictate extracting a specific element from the middle of a stack, parking the top elements temporarily allows extraction. Reuniting them on the source peg ensures the remaining stack remains valid and continuous, avoiding "blocking" the auxiliary peg.
+
+**Key check:** Impossibility is detected when the constraint `a[i]` exceeds the current stack size minus 1 at any level of the recursion. Move count remains bounded by `2^n - 2`.
+
+**Seen in:** R1101-D (generalized Hanoi with `a[i]`-dependent split, reuniting the top subset back to `src`).
+
+---
+
 ## General Heuristics
 
 - **When stuck on implementation:** simplify the state. Can a 2D state become 1D? Can you precompute one dimension?
 - **When the greedy seems wrong:** look for a counterexample with n=3 or n=4. If you can't find one, try proving via exchange argument.
 - **When complexity is borderline:** estimate the constant factor. Hash maps have ~10x overhead vs arrays. Sparse tables have better constants than segment trees for static queries.
 - **For constructive problems:** work backward from the answer. What must the last element be? The second-to-last?
+- **Bug Trap - Derived State Overflow:** Even if all input variables fit in 32-bit integers, derived properties (like capacity pools, aggregate counts, multiplied dimensions) can easily exceed `2*10^9`. Always check the maximum theoretical bound of any running sum or capacity metric.

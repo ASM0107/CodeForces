@@ -15,6 +15,7 @@ Problems cross-referenced by primary algorithmic technique. A problem may appear
 | [B — Absolute Cinema](../contests/Spectral%20Cup%202026%20Round%202%20(Codeforces%20Round%201100,%20Div.%201%20+%20Div.%202)/README.md#b--absolute-cinema) | Spectral Cup 2026 Round 2 (Codeforces Round 1100, Div. 1 + Div. 2) | Exchange argument: always take the max |
 | [C1 — We Be Flipping (Easy)](../contests/Spectral%20Cup%202026%20Round%202%20(Codeforces%20Round%201100,%20Div.%201%20+%20Div.%202)/README.md#c1--we-be-flipping-easy-version) | Spectral Cup 2026 Round 2 (Codeforces Round 1100, Div. 1 + Div. 2) | Backward sweep with parity tracking |
 | [C2 — We Be Flipping (Hard)](../contests/Spectral%20Cup%202026%20Round%202%20(Codeforces%20Round%201100,%20Div.%201%20+%20Div.%202)/README.md#c2--we-be-flipping-hard-version) | Spectral Cup 2026 Round 2 (Codeforces Round 1100, Div. 1 + Div. 2) | Optimal pivot via prefix accumulation |
+| [A — Convergence](../contests/Codeforces%20Round%201101%20(Div.%202)/README.md#a--convergence) | Codeforces Round 1101 (Div. 2) | Pairing opposite sides, median |
 
 ## Prefix / Suffix Arrays
 
@@ -24,6 +25,7 @@ Problems cross-referenced by primary algorithmic technique. A problem may appear
 | [B — Another Sorting Problem](../contests/Codeforces%20Round%201099%20(Div.%202)/README.md#b--another-sorting-problem) | Codeforces Round 1099 (Div. 2) | Inversion gap analysis across segments |
 | [B — Digit String](../contests/Educational%20Codeforces%20Round%20190%20(Div.%202)/README.md#b--digit-string) | Educational Codeforces Round 190 (Div. 2) | Prefix counts with sweep split point |
 | [C2 — We Be Flipping (Hard)](../contests/Spectral%20Cup%202026%20Round%202%20(Codeforces%20Round%201100,%20Div.%201%20+%20Div.%202)/README.md#c2--we-be-flipping-hard-version) | Spectral Cup 2026 Round 2 (Codeforces Round 1100, Div. 1 + Div. 2) | Running diff accumulation |
+| [B — Cake Leveling](../contests/Codeforces%20Round%201101%20(Div.%202)/README.md#b--cake-leveling) | Codeforces Round 1101 (Div. 2) | Cumulative excess validation |
 
 ## Binary Search
 
@@ -32,6 +34,7 @@ Problems cross-referenced by primary algorithmic technique. A problem may appear
 | [D — Sanae, Cross and Color](../contests/Codeforces%20Round%201098%20(Div.%202)/README.md#d--sanae-cross-and-color) | Codeforces Round 1098 (Div. 2) | `lower_bound` for coordinate compression |
 | [E — Minimum Influence](../contests/Educational%20Codeforces%20Round%20190%20(Div.%202)/README.md#e--minimum-influence) | Educational Codeforces Round 190 (Div. 2) | Custom binary search on decreasing sequence |
 | [D — Me When Median Problem](../contests/Spectral%20Cup%202026%20Round%202%20(Codeforces%20Round%201100,%20Div.%201%20+%20Div.%202)/README.md#d--me-when-median-problem) | Spectral Cup 2026 Round 2 (Codeforces Round 1100, Div. 1 + Div. 2) | Binary search on answer with monotone predicate |
+| [C2 — Seating Arrangement (Hard)](../contests/Codeforces%20Round%201101%20(Div.%202)/README.md#c2--seating-arrangement-hard-version) | Codeforces Round 1101 (Div. 2) | Ternary search on unimodal parameter |
 
 ## Constructive Algorithms
 
@@ -47,6 +50,12 @@ Problems cross-referenced by primary algorithmic technique. A problem may appear
 | Problem | Contest | Technique |
 |---------|---------|-----------|
 | [C1/C2 — Cirno and Number](../contests/Codeforces%20Round%201098%20(Div.%202)/README.md#c1c2--cirno-and-number-easyhard-version) | Codeforces Round 1098 (Div. 2) | Greedy digit-by-digit with backtracking |
+
+## Dynamic Programming
+
+| Problem | Contest | State Design |
+|---------|---------|-------------|
+| [C1 — Seating Arrangement (Easy)](../contests/Codeforces%20Round%201101%20(Div.%202)/README.md#c1--seating-arrangement-easy-version) | Codeforces Round 1101 (Div. 2) | State parameter reduction |
 
 ## Tree DP
 
@@ -71,6 +80,13 @@ Problems cross-referenced by primary algorithmic technique. A problem may appear
 | Problem | Contest | Event Type |
 |---------|---------|------------|
 | [D — Good Schedule](../contests/Educational%20Codeforces%20Round%20190%20(Div.%202)/README.md#d--good-schedule) | Educational Codeforces Round 190 (Div. 2) | Value-indexed events, backward DP, arithmetic series |
+| [B — Cake Leveling](../contests/Codeforces%20Round%201101%20(Div.%202)/README.md#b--cake-leveling) | Codeforces Round 1101 (Div. 2) | Left-to-right excess flow |
+
+## Divide and Conquer / Recursion
+
+| Problem | Contest | Technique |
+|---------|---------|-----------|
+| [D — Magical Tiered Cake](../contests/Codeforces%20Round%201101%20(Div.%202)/README.md#d--magical-tiered-cake) | Codeforces Round 1101 (Div. 2) | Tower of Hanoi variant, returning partial stack |
 
 ## Coordinate Compression
 
@@ -83,8 +99,8 @@ Problems cross-referenced by primary algorithmic technique. A problem may appear
 ### Difficulty Distribution
 
 ```
-800–1000  ████████  8 problems   (A/B level)
-1200–1600 ██████    6 problems   (B/C level)
-1800–2000 ████      4 problems   (D level)
-2000–2400 ██        2 problems   (E level)
+800–1000  ██████████  10 problems  (A/B level)
+1200–1600 ███████     7 problems   (B/C level)
+1800–2000 █████       5 problems   (D level)
+2000–2400 ███         3 problems   (E level)
 ```
