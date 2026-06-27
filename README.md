@@ -9,7 +9,7 @@ Contest solutions, editorial notes, and algorithmic observations.
 <br/>
 
 <a href="https://codeforces.com/profile/asmofficial172006">
-  <img src="https://img.shields.io/badge/Codeforces-Expert_%7C_1811-1a8cff?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces"/>
+  <img src="https://img.shields.io/badge/Codeforces-Candidate%20Master_%7C_1951-aa00aa?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces"/>
 </a>
 <img src="https://img.shields.io/badge/C++-20-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++20"/>
 <img src="https://img.shields.io/badge/Problems-25-2d333b?style=for-the-badge" alt="Problems"/>
@@ -17,7 +17,7 @@ Contest solutions, editorial notes, and algorithmic observations.
 
 <br/><br/>
 
-`asmofficial172006` · Expert · 0 → 1811 in 5 rated contests
+`asmofficial172006` · Candidate Master · 0 → 1951 in 5 rated contests
 
 </div>
 
@@ -107,7 +107,7 @@ Problems grouped by primary technique. See [topics/INDEX.md](topics/INDEX.md) fo
 ### Profiles
 
 <a href="https://codeforces.com/profile/asmofficial172006">
-  <img src="https://img.shields.io/badge/Codeforces-Expert_%7C_1811-1a8cff?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces"/>
+  <img src="https://img.shields.io/badge/Codeforces-Candidate%20Master_%7C_1951-aa00aa?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces"/>
 </a>
 <a href="https://www.codechef.com/users/aakash1701">
   <img src="https://img.shields.io/badge/CodeChef-aakash1701-5B4638?style=for-the-badge&logo=codechef&logoColor=white" alt="CodeChef"/>
